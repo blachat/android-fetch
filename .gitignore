@@ -1,0 +1,66 @@
+# Built application files
+*.apk
+*.apks
+*.aar
+*.iml
+*.hprof
+*.jks
+*.idsig
+
+# Project outputs
+build/
+bin/
+out/
+.gradle/.cache/
+.kotlin/
+
+# Android Studio generated files
+.idea/
+
+# Gradle files
+.gradle/
+/local.properties
+
+# Local configuration file (contains sensitive information)
+local.properties
+
+# Files for the Gradle daemon (performance)
+.gradle/daemon/
+
+# OS generated files (Windows specific)
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store # Also included for cross platform compatibility.
+*.log
+
+# Android Studio Profiler files
+captures/
+
+# Firebase related files
+google-services.json
+
+# Navigation editor backup files
+*.xml.bak
+
+# Crashlytics files
+crashlytics-build.properties
+
+# Keystore files
+*.keystore
+
+# Code Coverage files
+coverage/
+*.ec
+*.exec
+
+# External Native Build files
+.externalNativeBuild
+
+# Windows specific build files.
+*.obj
+*.exe
+*.pdb
+*.lib
+*.dll
+*.exp
