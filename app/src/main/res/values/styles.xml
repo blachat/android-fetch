@@ -1,0 +1,16 @@
+<resources>
+    <style name="CardViewText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <style name="CardView.Header" parent="CardViewText">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CardView.Body" parent="CardViewText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
