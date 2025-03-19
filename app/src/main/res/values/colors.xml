@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pink">#FFD1DC</color>
+    <color name="blue">#AEC6CF</color>
+    <color name="green">#B9FBC0</color>
+    <color name="purple">#DCC6E0</color>
+    <color name="yellow">#FFFACD</color>
+    <color name="orange">#FFB347</color>
 </resources>
