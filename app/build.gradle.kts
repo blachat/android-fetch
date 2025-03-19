@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -18,7 +19,15 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            buildConfigField("String", "BASE_URL", "\"https://fetch-hiring.s3.amazonaws.com/\"")
+        }
+
         release {
+            getByName("debug") {
+                //todo: set production url
+                buildConfigField("String", "BASE_URL", "\"https://fetch-hiring.s3.amazonaws.com/\"")
+            }
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -34,11 +43,18 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        android.buildFeatures.buildConfig = true
         viewBinding = true
     }
 }
 
 dependencies {
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
