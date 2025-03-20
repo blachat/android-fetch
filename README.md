@@ -6,7 +6,7 @@ https://github.com/user-attachments/assets/de2f2eab-db7a-4d1e-bc21-33d3d3f2c032
 
 
 
-* The initial functionaliy includes the following:   
+* The initial functionality includes the following:   
   * Adds RetroFit Implementation 
   * Adds Build config field to gradle 
      * allows endpoint calls production server  or develop server based on build type
