@@ -14,12 +14,14 @@ class FetchListViewModel : ViewModel() {
     val fetchList: LiveData<List<FetchItem>> get() = _fetchList
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> get() = _loading
+    private val _networkError = MutableLiveData(false)
+    val networkError: LiveData<Boolean> get() = _networkError
 
     init {
         getFetchListItems()
     }
 
-    private fun getFetchListItems() {
+    fun getFetchListItems() {
         viewModelScope.launch {
             _loading.value = true
             try {
@@ -33,9 +35,11 @@ class FetchListViewModel : ViewModel() {
                     }
                 _fetchList.value = groupedAndSortedList
                 _loading.value = false
+                _networkError.value = false
             } catch (e: Exception) {
                 println("Error: ${e.message}")
                 _loading.value = false
+                _networkError.value = true
             }
         }
     }

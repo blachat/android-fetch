@@ -9,4 +9,7 @@
     <string name="formatted_item_field_name">Item Name:</string>
     <string name="fetch_logo">fetch</string>
     <string name="additional_details">Additional details can be added for the item.  Such as item image, sku, availability, price or any other information that the customer may find useful.</string>
+    <string name="network_error_title">Network Error</string>
+    <string name="network_error_message">Please check your network settings</string>
+    <string name="try_again">Try Again</string>
 </resources>
