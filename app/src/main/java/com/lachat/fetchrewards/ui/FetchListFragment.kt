@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.lachat.fetchrewards.R
 import com.lachat.fetchrewards.databinding.FragmentListBinding
+import com.lachat.fetchrewards.utils.FetchUtils
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -33,6 +36,7 @@ class FetchListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         initObservers()
         binding.rvItems.apply {
             setHasFixedSize(true)
@@ -52,6 +56,33 @@ class FetchListFragment : Fragment() {
                 displayErrorDialog()
             }
         }
+        fetchListViewModel.groupList.observe(viewLifecycleOwner) {
+            addFetchedGroupChips(it)
+        }
+    }
+
+    private fun addFetchedGroupChips(groupList: List<Int>?) {
+        groupList?.forEach {
+            val chip = FetchUtils.getGroupChip(requireContext(), it)
+            chip.isChecked = (chip.tag in fetchListViewModel.filteredGroupIds)
+            chip.setOnClickListener {
+                updateFilter()
+            }
+            binding.cgGroup.addView(chip)
+        }
+    }
+
+    private fun updateFilter() {
+        val filterIds = mutableListOf<Int>()
+        val selectedChips = binding.cgGroup.checkedChipIds
+        for (id in selectedChips) {
+            val chip = binding.cgGroup.findViewById<Chip>(id)
+            val chipId = chip.tag as? Int
+            if (chipId != null) {
+                filterIds.add(chipId)
+            }
+        }
+        fetchListViewModel.filterToSelectedGroups(filterIds)
     }
 
     private fun displayErrorDialog() {
