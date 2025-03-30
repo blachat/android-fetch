@@ -12,4 +12,5 @@
     <string name="network_error_title">Network Error</string>
     <string name="network_error_message">Please check your network settings</string>
     <string name="try_again">Try Again</string>
+    <string name="select_filters">Select Group Filters:</string>
 </resources>
