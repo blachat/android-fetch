@@ -18,3 +18,4 @@ https://github.com/user-attachments/assets/4792837b-d4fe-46c1-bf56-3762c7b42d64
     * Animate and navigates to details fragment
     * (Can be used to show additional details to the user)
   * Allow user to filter list based on group
+    * Filters are dynamically generated based on the data received from the backend 
