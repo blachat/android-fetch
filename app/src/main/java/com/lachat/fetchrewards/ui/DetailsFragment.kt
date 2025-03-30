@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.lachat.fetchrewards.R
@@ -28,15 +29,14 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        (activity as AppCompatActivity).supportActionBar?.show()
         val fetchItem = args.fetchItem
 
-        with (binding.includedLyt) {
+        with(binding.includedLyt) {
             val cardBackgroundColor = FetchUtils.getCardColor(requireActivity(), fetchItem.listId)
             cardView.setCardBackgroundColor(cardBackgroundColor)
             tvGroup.text = getString(R.string.group, fetchItem.listId)
@@ -47,6 +47,7 @@ class DetailsFragment : Fragment() {
             tvId.text = getString(R.string.item_id, fetchItem.id)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

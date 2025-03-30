@@ -12,10 +12,15 @@ class FetchListViewModel : ViewModel() {
 
     private val _fetchList = MutableLiveData<List<FetchItem>>()
     val fetchList: LiveData<List<FetchItem>> get() = _fetchList
+    private val _groupList = MutableLiveData<List<Int>>()
+    val groupList: LiveData<List<Int>> get() = _groupList
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> get() = _loading
     private val _networkError = MutableLiveData(false)
     val networkError: LiveData<Boolean> get() = _networkError
+    private var originalData: List<FetchItem>? = null
+    private val _filteredGroupIds = mutableListOf<Int>()
+    val filteredGroupIds: List<Int> get() = _filteredGroupIds
 
     init {
         getFetchListItems()
@@ -34,6 +39,17 @@ class FetchListViewModel : ViewModel() {
                         entry.value.sortedWith(compareBy { it.id })
                     }
                 _fetchList.value = groupedAndSortedList
+                originalData = groupedAndSortedList
+
+                // Create Initial group for filter
+                if (groupList.value == null) {
+                    val sortedGroup = response.map { it.listId }
+                        .distinct()
+                        .sorted()
+                    _filteredGroupIds.addAll(sortedGroup)
+                    _groupList.value = sortedGroup
+                }
+
                 _loading.value = false
                 _networkError.value = false
             } catch (e: Exception) {
@@ -41,6 +57,16 @@ class FetchListViewModel : ViewModel() {
                 _loading.value = false
                 _networkError.value = true
             }
+        }
+    }
+
+    fun filterToSelectedGroups(filteredGroupIds: List<Int>) {
+        _filteredGroupIds.clear()
+        _filteredGroupIds.addAll(filteredGroupIds)
+        viewModelScope.launch {
+            _loading.value = true
+            _fetchList.value = originalData?.filter { it.listId in _filteredGroupIds }
+            _loading.value = false
         }
     }
 }
