@@ -2,7 +2,7 @@
 
 ## App Functionality 
 
-https://github.com/user-attachments/assets/de2f2eab-db7a-4d1e-bc21-33d3d3f2c032
+https://github.com/user-attachments/assets/4792837b-d4fe-46c1-bf56-3762c7b42d64
 
 
 
@@ -16,4 +16,5 @@ https://github.com/user-attachments/assets/de2f2eab-db7a-4d1e-bc21-33d3d3f2c032
     * List items color will change based on group it belongs to 
   * Allows user to select an item from the list
     * Animate and navigates to details fragment
-    * (Can be used to show additional details to the user) 
+    * (Can be used to show additional details to the user)
+  * Allow user to filter list based on group
