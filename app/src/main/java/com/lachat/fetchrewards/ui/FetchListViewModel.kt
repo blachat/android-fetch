@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lachat.fetchrewards.repository.Repository
 import com.lachat.fetchrewards.model.FetchItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FetchListViewModel : ViewModel() {
 
@@ -31,19 +33,22 @@ class FetchListViewModel : ViewModel() {
             _loading.value = true
             try {
                 val repository = Repository()
-                val response = repository.getUsers().filter { !it.name.isNullOrEmpty() }
-                val groupedAndSortedList = response
-                    .groupBy { it.listId }
-                    .toSortedMap(compareBy { it })
-                    .flatMap { entry ->
-                        entry.value.sortedWith(compareBy { it.id })
-                    }
+                val groupedAndSortedList = withContext(Dispatchers.IO) {
+                    val response = repository.getUsers().filter { !it.name.isNullOrEmpty() }
+                    response
+                        .groupBy { it.listId }
+                        .toSortedMap(compareBy { it })
+                        .flatMap { entry ->
+                            entry.value.sortedWith(compareBy { it.id })
+                        }
+                }
                 _fetchList.value = groupedAndSortedList
                 originalData = groupedAndSortedList
 
+
                 // Create Initial group for filter
                 if (groupList.value == null) {
-                    val sortedGroup = response.map { it.listId }
+                    val sortedGroup = originalData!!.map { it.listId }
                         .distinct()
                         .sorted()
                     _filteredGroupIds.addAll(sortedGroup)
