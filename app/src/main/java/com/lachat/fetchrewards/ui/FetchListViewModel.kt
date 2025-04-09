@@ -34,7 +34,7 @@ class FetchListViewModel : ViewModel() {
             try {
                 val repository = Repository()
                 val groupedAndSortedList = withContext(Dispatchers.IO) {
-                    val response = repository.getUsers().filter { !it.name.isNullOrEmpty() }
+                    val response = repository.getFetchItems().filter { !it.name.isNullOrEmpty() }
                     response
                         .groupBy { it.listId }
                         .toSortedMap(compareBy { it })
