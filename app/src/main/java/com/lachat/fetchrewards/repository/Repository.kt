@@ -6,7 +6,7 @@ import com.lachat.fetchrewards.network.RetrofitClient
 class Repository {
     private val apiService = RetrofitClient.apiService
 
-    suspend fun getUsers(): List<FetchItem> {
+    suspend fun getFetchItems(): List<FetchItem> {
         return apiService.getFetchItems()
     }
 }
